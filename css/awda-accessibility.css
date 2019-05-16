@@ -1,0 +1,44 @@
+.awda-sticky .btn-floating i { font-size:18px; }
+.awda-sticky .fixed-action-btn ul { bottom:42px; }
+.awda-sticky .fixed-action-btn { left:8px;bottom:8px;right:initial; }
+.awda-sticky .btn-floating.btn-large { width:45px;height:45px; }
+.awda-sticky i.fa.fa-wheelchair { line-height:45px;position:relative;bottom:1px;left:2px;font-size:24px; }
+
+.awda-sticky .white i, .sticky-footer .white i { color: black; }
+
+/* AwDA responsive footer */
+.sticky-footer .row .col.s2 { margin-right:auto;margin-left:auto; }
+.sticky-footer ul { left: initial;right:36px;bottom:52px; }
+/*.sticky-footer .fixed-action-btn { position:initial;padding:0; }
+.sticky-footer .btn-floating.btn-large { height:40px;width:40px; }*/
+.sticky-footer i.fa.fa-wheelchair { line-height:40px;position:relative;bottom:5px;left:2px;font-size:18px; }
+
+
+@media (max-width: 600px ) {
+    .awda-sticky .btn-floating.btn-large {
+        height: 38px;
+        width: 42px;
+        border-radius: 0px 35px 0 0;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0), 0 3px 1px -2px rgba(0, 0, 0, 0)
+    }
+
+    .awda-sticky i.fa.fa-wheelchair {
+        line-height: 40px;
+        position: relative;
+        bottom: 4px;
+        left: -2px;
+        font-size: 20px;
+    }
+
+    .awda-sticky .fixed-action-btn {
+        left: 0;
+        bottom: 60px;
+        padding: 0;
+    }
+
+    .awda-sticky .fixed-action-btn ul {
+        left: 10px;
+        right: initial;
+        bottom: 32px;
+    }
+}

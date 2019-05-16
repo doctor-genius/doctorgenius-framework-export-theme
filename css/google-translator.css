@@ -1,0 +1,79 @@
+#google_translate_element {
+    display: none;
+}
+.logged-in .goog-te-banner-frame { top: 32px; }
+
+/*
+.google-translator-sticky .btn-floating i { font-size:18px; }
+.google-translator-sticky .fixed-action-btn ul { bottom:42px; }
+.google-translator-sticky .fixed-action-btn { text-align: right; left:initial; bottom:8px; right: 8px; }
+.google-translator-sticky .btn-floating.btn-large { width:45px;height:45px; }
+.google-translator-sticky i.fa.fa-globe, .google-translator-sticky i.fa.fa-chat { line-height:45px;position:relative;bottom:0px;left:0px;font-size:26px; }
+.google-translator-sticky #current_lang { display: none; }
+.google-translator-sticky .white i, .sticky-footer .white i { color: black; }
+*/
+#translation_links { left: initial; text-align: right; }
+
+
+/* Desktop */
+.google-translator-sticky .btn-floating i { font-size:26px; }
+.google-translator-sticky .fixed-action-btn ul { bottom:42px;left:initial; }
+.google-translator-sticky .fixed-action-btn ul li { bottom:10px; }
+.google-translator-sticky .fixed-action-btn ul a.btn-floating { width:100px;border-radius:25px;height:35px;line-height:35px;text-decoration:none; text-align: center; }
+.google-translator-sticky .fixed-action-btn { right:8px;bottom:8px;left:initial; }
+.google-translator-sticky .btn-floating.btn-large { width:45px;height:45px; }
+.google-translator-sticky i.fa.fa-globe { line-height:48px;position:relative;bottom:1px;font-size:26px; }
+
+
+/* Mobile */
+@media (max-width: 600px ) {
+    .sticky-footer .row .col.s2 { margin-right:auto;margin-left:auto; }
+    .sticky-footer ul { left: initial;right: 9px;bottom: 26px; }
+    
+    
+    .google-translator-sticky .btn-floating.btn-large {
+        height: 38px;
+        width: 42px;
+        border-radius: 35px 0px 0 0;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0), 0 1px 5px 0 rgba(0, 0, 0, 0), 0 3px 1px -2px rgba(0, 0, 0, 0)
+    }
+
+    .google-translator-sticky .fixed-action-btn {
+        right: 0px;
+        left: initial;
+        bottom: 60px;
+    }
+
+    .google-translator-sticky i.fa.fa-globe {
+        line-height: 40px;
+        position: relative;
+        bottom: 2px;
+        left: 5px;
+        font-size: 24px;
+    }
+
+    .google-translator-sticky .fixed-action-btn ul {
+        left: initial;
+        right: 10px;
+        bottom: 32px;
+    }
+
+    .google-translator-sticky .fixed-action-btn ul a.btn-floating {
+        width: 100px;
+        border-radius: 25px;
+        height: 35px;
+        line-height: 35px;
+        text-decoration: none;
+    }
+}
+
+
+
+
+/* google-translator responsive footer 
+.sticky-footer .row .col.s2 { margin-right:auto;margin-left:auto; }
+.sticky-footer ul { left: initial;right:36px;bottom:52px; }
+.sticky-footer .fixed-action-btn { position:initial;padding:0; }
+.sticky-footer .btn-floating.btn-large { height:40px;width:40px; }
+.sticky-footer i.fa.fa-wheelchair { line-height:40px;position:relative;bottom:5px;left:2px;font-size:18px; }
+*/

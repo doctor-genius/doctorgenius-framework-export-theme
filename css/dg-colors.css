@@ -1,0 +1,427 @@
+/**
+ * Calculate the luminance for a color.
+ * See https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+ */
+/**
+ * Calculate the contrast ratio between two colors.
+ * See https://www.w3.org/TR/WCAG20-TECHS/G17.html#G17-tests
+ */
+/**
+ * Determine whether to use dark or light text on top of given color.
+ * Returns black for dark text and white for light text.
+ */
+/* Setup 'dg-colors-Default' */
+/* ----------------------------------- Implementation ------------------------------------------------------------ */
+.bg-body {
+  background: white;
+  color: black; }
+
+.bg-body-complement {
+  background: #e6e6e6;
+  color: black; }
+
+/* complement has a slightly different shade */
+.bg-body .text-contrast, .bg-body-complement .text-contrast, .bg-body .divider-dotted {
+  color: #5f7d7f; }
+
+/* Headings aand .text-contrast are defined in relation to a background */
+.bg-nav {
+  background: white;
+  color: black; }
+
+.bg-nav-complement {
+  background: #e6e6e6;
+  color: black; }
+
+/* complement has a slightly different shade */
+.bg-nav .text-contrast, .bg-nav .divider-dotted {
+  color: white; }
+
+/* Headings aand .text-contrast are defined in relation to a background */
+.bg-primary, .bg-primary .text-default {
+  background: #5f7d7f;
+  color: #fff; }
+
+.bg-primary-complement, .bg-primary-complement .text-default {
+  background: #496062;
+  color: #fff; }
+
+/* complement has a slightly different shade */
+.btn-primary, .btn-primary > a, .btn-primary > span > a {
+  background: #5f7d7f;
+  color: #fff; }
+
+.bg-primary .text-contrast, .bg-primary .divider-dotted {
+  color: #fff; }
+
+/* Headings aand .text-contrast are defined in relation to a background */
+.bg-mute {
+  background: #fff;
+  color: black; }
+
+.bg-mute-complement {
+  background: #f2f2f2;
+  color: black; }
+
+/* complement has a slightly different shade */
+.btn-mute:not(.active) {
+  background: #fff;
+  color: black; }
+
+/* Not sure this is used anywhere */
+.bg-mute .text-contrast, .bg-mute .divider-dotted {
+  color: #5f7d7f; }
+
+/* Headings aand .text-contrast are defined in relation to a background */
+.bg-secondary {
+  background: #9cb5b7;
+  color: black;
+  border-color: #9cb5b7; }
+
+/* Also .call-out */
+.bg-secondary-complement {
+  background: #bacbcc;
+  color: black; }
+
+.btn-secondary, .btn-secondary > a, .btn-secondary > span > a {
+  background: #9cb5b7;
+  color: black; }
+
+.bg-secondary .text-contrast, .bg-secondary .divider-dotted {
+  color: #fff; }
+
+/* Headings aand .text-contrast are defined in relation to a background */
+.bg-tertiary {
+  background: #5f7d7f;
+  color: #FFF; }
+
+.bg-tertiary-complement {
+  background: #6a8b8e;
+  color: #FFF; }
+
+.btn-tertiary, .btn-tertiary > a, .btn-tertiary > span > a {
+  background: #5f7d7f;
+  color: #FFF; }
+
+.bg-tertiary .text-contrast, .bg-tertiary .divider-dotted {
+  color: #fff; }
+
+/* Headings aand .text-contrast are defined in relation to a background */
+.bg-white {
+  background: #ffffff;
+  color: black; }
+
+.bg-white-complement {
+  background: #f2f2f2;
+  color: black; }
+
+.btn-white, .btn-white > a, .btn-white > span > a {
+  background: #9cb5b7;
+  color: black; }
+
+.bg-white .text-contrast, .bg-white .divider-dotted {
+  color: #5f7d7f; }
+
+/* Headings aand .text-contrast are defined in relation to a background */
+.btn-transparent {
+  background: transparent;
+  color: #5f7d7f; }
+
+.btn-transparent.active, .btn-transparent.active:hover {
+  background: #5f7d7f;
+  color: #FFF; }
+
+/* -------------------------------------------------- Site Structure ------------------------------------------------ */
+/* ------------- General -------------*/
+/* html { background: $white; color: $bg-white-body-text; } /* Deprecated */
+/* All links inherit from their parent - adding btn-tertiary is a hack here to avoid making nav buttons .btn class @todo#73 */
+a:not(.text-contrast):not(.btn):not(.btn-tertiary):not(.btn-transparent):not(.btn-floating):not(.breadcrumb):not(.edit-link), input[type=submit].waves-button-input {
+  color: inherit;
+  background: transparent; }
+
+/* ------------- Hovers -------------*/
+/* Button Hovers - the complementary base color; text color is inherited from the .{base-color}-btn class */
+.btn-primary:hover {
+  background: #496062; }
+
+.btn-secondary:hover {
+  background: #bacbcc; }
+
+.btn-tertiary:hover {
+  background: #6a8b8e; }
+
+/* Also .phone - maybe work in */
+.btn-transparent:hover {
+  background: #fff; }
+
+/* Dropdown Hover States */
+.dropdown-content:not(.dropdown-main-nav) li:hover,
+.dropdown-content:not(.dropdown-main-nav) ul.active li,
+.dropdown-content:not(.dropdown-main-nav) li.selected,
+.dropdown-content:not(.dropdown-main-nav) li:hover a {
+  background-color: #6a8b8e; }
+
+/* Hover state on home page services grid */
+figure.effect-sadie figcaption:before {
+  background: -webkit-linear-gradient(top, rgba(95, 125, 127, 0) 0%, rgba(95, 125, 127, 0.8) 75%);
+  background: linear-gradient(to bottom, rgba(95, 125, 127, 0) 0%, rgba(95, 125, 127, 0.8) 75%); }
+
+/* FA / Icons hover states */
+#SubFooter .fa:hover {
+  color: #9cb5b7; }
+
+/* ------------- Navigation -------------*/
+.bg-nav {
+  background-color: white; }
+
+/* Main nav, top level links, slight background on hover */
+nav .main-nav .main-menu-item:hover,
+nav .multi-location-nav:hover:not(.active) {
+  background: #e6e6e6; }
+
+/* Main navbar, dropdown, background and text */
+nav ul.main-nav .dropdown-main-nav,
+nav ul.main-nav .dropdown-main-nav .sub-menu-item {
+  background: #5f7d7f;
+  color: #FFF; }
+
+/* Nav underlines on hover */
+nav ul.main-nav > li > a:before,
+nav .dropdown-main-nav li a:before,
+nav ul.side-nav li > a:before {
+  /* Side nav */
+  background-color: #6a8b8e; }
+
+/* Main navbar, small size (on page scroll) */
+nav.small .top-nav-wrapper {
+  background: #e6e6e6; }
+
+/* Background of small navbar */
+/* Side Nav */
+nav .button-collapse {
+  color: #5f7d7f; }
+
+nav .button-collapse:hover {
+  color: #9cb5b7; }
+
+nav .side-nav li {
+  border-color: #fff; }
+
+/* --------------- Forms ---------------*/
+.bg-form {
+  background-color: #5f7d7f; }
+
+/* primary-complement by default, but overrideable */
+.input-field label {
+  color: rgba(158, 158, 158, 0.9); }
+
+.input-field select, .location-selector select {
+  color: #000000; }
+
+/* Forms are hard white/ hard black text */
+input label.active {
+  color: #ffffff; }
+
+/* Labels in user input fields being used disappear */
+/* Forms Inputs are hard white/ hard black text */
+input:not([type]), input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+  background-color: #ffffff; }
+
+/* Text color for read-only inputs, indicating disabled use */
+input:not([type]):focus:not([readonly]) + label, input[type=text]:focus:not([readonly]) + label, input[type=password]:focus:not([readonly]) + label, input[type=email]:focus:not([readonly]) + label, input[type=url]:focus:not([readonly]) + label, input[type=time]:focus:not([readonly]) + label, input[type=date]:focus:not([readonly]) + label, input[type=datetime]:focus:not([readonly]) + label, input[type=datetime-local]:focus:not([readonly]) + label, input[type=tel]:focus:not([readonly]) + label, input[type=number]:focus:not([readonly]) + label, input[type=search]:focus:not([readonly]) + label, textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: #fff; }
+
+/* Form accent border, shows on in-use input */
+input:not([type]):focus:not([readonly]), input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom-color: #9cb5b7;
+  box-shadow: 0 1px 0 0 #9cb5b7; }
+
+/* --------------- Footer ---------------*/
+/* Sticky Footer */
+.sticky-footer {
+  /*  background: $white; /* hard white */
+  -webkit-box-shadow: 0 -2px 18px -4px rgba(76, 76, 76, 0.37);
+  /* border - hard grey shadow */
+  -moz-box-shadow: 0 -2px 18px -4px rgba(76, 76, 76, 0.37);
+  box-shadow: 0 -2px 18px -4px rgba(76, 76, 76, 0.37); }
+
+/* Footer Contact bar */
+.contact .box-wrap-first, .contact .box-wrap, .contact .box-wrap-last, .contact {
+  border-color: #496062; }
+
+/* Contact bar thin vertical dividers */
+/* --------------- Misc ---------------*/
+/* Dividers */
+.divider {
+  background: transparent; }
+
+.divider-solid {
+  color: inherit; }
+
+/* -------------------------------------------------- Individual Pages ------------------------------------------------ */
+/* Home */
+.reviews-callout .speech-bubble:after {
+  border-top-color: #496062; }
+
+.index-testimonial .speech-bubble:after {
+  border-top-color: #9cb5b7; }
+
+#home-slider.slider .indicator-item {
+  background: #5f7d7f; }
+
+#home-slider.slider .indicator-item.active {
+  background: #5f7d7f; }
+
+/* button color */
+/* About */
+.profile-wrap, .border-left {
+  border-color: #fff; }
+
+.profile-container .image-wrapper.border-thin-primary .image-border {
+  border: 3px solid #5f7d7f; }
+
+.profile-container .image-wrapper.border-thin-secondary .image-border {
+  border: 3px solid #9cb5b7; }
+
+.profile-container .image-wrapper.border-thin-tertiary .image-border {
+  border: 3px solid #5f7d7f; }
+
+.profile-container .image-wrapper.border-box-shadow-primary .image-border {
+  box-shadow: 5px 5px 5px rgba(95, 125, 127, 0.75); }
+
+/* Contact */
+.location-info-panel a.btn-location {
+  border-color: #ffffff;
+  color: #ffffff; }
+
+/* hard white */
+.location-info-panel a.btn-location:hover {
+  background-color: #bacbcc;
+  box-shadow: none; }
+
+/* Testimonials */
+.testimonials-wrap:before {
+  border-color: #e6e6e6 transparent; }
+
+/* Hard White */
+#testimonials-page-slider.slick-slider li.slick-active button:before {
+  color: #5f7d7f; }
+
+/* @todo this and home slider should be able to be combined*/
+/* Multilocation Archive (All Locations) */
+.multi-category .location-image {
+  background: #fff; }
+
+/* Fills in on a too-small image */
+/* All Services */
+.inner-block-services .service-wrapper img {
+  border-color: #5f7d7f; }
+
+/* border around the service icons */
+/* Service Pages */
+.page-template-page .inner-intro.bg-white h1 span, .page-template-page .inner-intro.bg-white h1 a span, .page-template-empty .inner-intro.bg-white h1 span, .page-template-empty .inner-intro.bg-white h1 a span {
+  color: #5f7d7f; }
+.page-template-page .inner-intro.bg-mute h1 span, .page-template-empty .inner-intro.bg-mute h1 span {
+  color: #5f7d7f; }
+.page-template-page .inner-intro.bg-tertiary h1 span, .page-template-empty .inner-intro.bg-tertiary h1 span {
+  color: #fff; }
+.page-template-page .inner-intro.bg-secondary h1 span, .page-template-empty .inner-intro.bg-secondary h1 span {
+  color: #fff; }
+.page-template-page .inner-intro.bg-primary h1 span, .page-template-empty .inner-intro.bg-primary h1 span {
+  color: #fff; }
+.page-template-page .inner-intro.bg-body h1 span, .page-template-empty .inner-intro.bg-body h1 span {
+  color: #5f7d7f; }
+
+.breadcrumb {
+  color: inherit;
+  opacity: 0.65; }
+
+.breadcrumb:last-child {
+  color: #5f7d7f; }
+
+.breadcrumb:hover {
+  color: #5f7d7f; }
+
+.breadcrumb:hover:before, .breadcrumb:before {
+  color: black; }
+
+/* -------------------------------------------------- Media Queries ------------------------------------------------ */
+@media only screen and (max-width: 992px) {
+  nav.large .nav-wrapper .top-nav-wrapper {
+    background: #fff; }
+
+  nav.large .nav-wrapper li.phone {
+    color: #ffffff; }
+
+  nav.large a.multi-phone i {
+    border-right-color: white; } }
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+  .border-left {
+    border-left-color: #fff; }
+
+  .profile-wrap {
+    border-right-color: #fff; } }
+@media only screen and (max-width: 768px) {
+  .team .profile-image img {
+    border-color: #fff; } }
+@media only screen and (max-width: 601px) {
+  .profile-wrap {
+    border-top-color: #fff; } }
+/* -------------------------------------------------- Color Overrides ------------------------------------------------ */
+/* These are helper classes which should only be used to override color scheme default relationships */
+/* The default text colors, one for each type of background. */
+.bg-primary-body-text {
+  color: #fff !important; }
+
+.bg-secondary-body-text {
+  color: black !important; }
+
+.bg-tertiary-body-text {
+  color: #FFF !important; }
+
+.bg-white-body-text {
+  color: black !important; }
+
+.bg-mute-body-text {
+  color: black !important; }
+
+/* A color of text corresponding to one of the base colors - This should only be used for headings, callouts, special links */
+.text-default {
+  color: inherit; }
+
+/* This will inherit the element's default color, useful for headings ie, recent blogs */
+.text-primary {
+  color: #5f7d7f !important; }
+
+.text-secondary {
+  color: #9cb5b7 !important; }
+
+.text-tertiary {
+  color: #5f7d7f !important; }
+
+.text-white {
+  color: #ffffff !important; }
+
+.text-black {
+  color: #000000 !important; }
+
+.text-mute {
+  color: #fff !important; }
+
+/* Wordpress considerations */
+.edit-link {
+  background: transparent;
+  color: inherit; }
+
+.edit-link a {
+  color: inherit; }
+
+/* Preserving but unused */
+/* Special "All Services" first link in main dropdown: */
+/* 
+nav .dropdown-main-nav li:first-child a:before { background-color: inherit; }  Main nav dropdown, First item ("All Services") - don't underline on hover 
+nav ul.main-nav .dropdown-content li:first-of-type { flex-basis: 100%; font-family: 'Raleway', sans-serif;font-weight:300;border-bottom:1px solid; margin-bottom:10px; }
+nav ul.main-nav .dropdown-content li:first-of-type a { line-height: 110%; padding-top: 0; font-size: 13px; } /* @todo this font size appears visually correct, but can't possibly be right 
+*/
+
+/*# sourceMappingURL=dg-colors.css.map */

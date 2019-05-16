@@ -1,0 +1,23 @@
+/* -------- Fonts ---------- */
+h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5  { font-family: 'Raleway', sans-serif; }
+.inner-block { font-family: 'Raleway', sans-serif; }
+.slider p { font-family: 'Raleway', sans-serif; }
+.cta span:not(.client-phone):not(.client-address), .contact-wrap .form-title  { font-family: 'Raleway', sans-serif; }
+html, body { overflow-x:hidden!important;font-family: 'Raleway', sans-serif; }
+
+
+button { font-family:'Montserrat', sans-serif; }
+#static-replacement-submit.btn { font-family: 'Montserrat', sans-serif; }
+nav ul.top-nav { font-weight:300;font-family:'Montserrat', sans-serif }
+.footer-content-dropdown li { font-family:'Montserrat', sans-serif; }
+
+nav { font-family: 'Source Sans Pro',sans-serif; }
+p,
+.bullet-list li,
+.no-bullet-list,
+.authority-list li,
+.definitions { font-family: 'Source Sans Pro', sans-serif; }
+.dropdown-content:not(.dropdown-main-nav) .dlist li,.dropdown-content .dlist-01 li { font-family: 'Source Sans Pro',sans-serif; }
+#SubFooter { font-family: 'Source Sans Pro', sans-serif; }
+#SubFooter .container { font-family: 'Source Sans Pro', sans-serif; }
+#SubFooter .container { height:100px;margin:0 auto; font-family: 'Source Sans Pro', sans-serif; }

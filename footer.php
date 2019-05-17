@@ -1,17 +1,4 @@
 <?php
-
-// Load FW options & Page Template postmeta
-/* Not working:
-global $fw_options;
-if ( ! $fw_options ) {
-    ?><!-- loading framework_options in footer DEBUG @todo#7--><?php
-} else {
-    ?><!-- loading framework_options in footer DEBUG @todo#7--><?php
-    $fw_options = get_option( 'dg_options' );
-    global $fw_options;
-}
-global $fw_options;
-*/
 $fw_options = get_option( 'dg_options' );
 
 // Process meta array offsets into variables for use in template
@@ -34,19 +21,7 @@ $footer_blogs_heading = ! isset( $fw_options['footer_blogs_heading'] ) ? '' : $f
 $footer_blogs_shortcode = ! isset( $fw_options['footer_blogs_shortcode'] ) ? '' : $fw_options['footer_blogs_shortcode'];
 
 //Handle multilocation design
-$locations_query = FALSE;
-if ( $fw_options['locations_override'] ) {
-    global $locations_query;
-    if ( ! $locations_query ) {
-        ?><!-- Creating new loations loop (DEBUG) <?php
-        $args = array(
-            'post_type' => 'locations',
-            'orderby'   => 'date',
-            'order'     => 'DESC'
-        );
-        $locations_query = new WP_Query( $args );
-    }
-}
+
 
 // Footer Links
 $terms_of_use_link = get_page_by_title( 'Terms of Use' );
@@ -101,22 +76,6 @@ if ( ! $footer_contact_row_box_3_link ) {
     $footer_contact_row_box_3_link = '<a class="btn btn-tertiary waves-effect" href="' . $contact_us_link . '">Contact Us</a>';
 }
 
-/*
-//Handle recent blogs 
-$recent_blogs_query_args = array( 'post_type' => 'post', 'posts_per_page' => '3' );
-$recent_blogs_query = new WP_Query( $recent_blogs_query_args );
-
-$footer_logo_col = 's12 m12 l5'; //These control the footer 3 column display 
-$footer_info_col = 's12 m6 l3';
-$footer_posts_col = 's12 m6 l4';
-
-if ( ! $recent_blogs_query->have_posts() ) { //Slim down to 2 columns when no blogs exist
-	$footer_logo_col = 's12 m12 l5 offset-l1';
-	$footer_info_col = 's12 m12 l4 offset-l1';
-	$footer_posts_col = 'hidden';
-}
-*/
-
 //Handle AwDA
 $responsive_sticky_footer_columns = 'col s3';
 //if ( $fw_options['awda_toggle']  ) { $responsive_sticky_footer_columns = 'col s2'; }
@@ -141,16 +100,29 @@ $responsive_sticky_footer_columns = 'col s3';
                             <li><a href="<?php echo $contact_us_link; ?>">All Locations</a></li>
                             <!-- Locations loop -->
                             <?php
+                            $locations_query = FALSE;
+                            if ( $fw_options['locations_override'] ) {
+                                global $locations_query;
+                                if ( ! $locations_query ) {
+
+                                    $args = array(
+                                        'post_type' => 'locations',
+                                        'orderby'   => 'date',
+                                        'order'     => 'DESC'
+                                    );
+                                    $locations_query = new WP_Query( $args );
+                                }
+                            }
                             if ( $locations_query->have_posts() ) : while ( $locations_query->have_posts() ) : ?>
                                 <?php
                                 $locations_query->the_post();
-                                $locations_meta = get_post_meta( $post->ID, 'dg_postmeta', true );
+                                $locations_meta = get_post_meta_single( $post->ID );
                                 ?>
                                 <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
                             <?php endwhile; else: ?>
                                 <p>No locations found!</p>
                             <?php endif; ?>
-                            <?php rewind_posts(); // We'll use the same query again for phone numbers to reduce server load ?>
+                            <?php wp_reset_postdata(); // We'll use the same query again for phone numbers to reduce server load ?>
                             <!-- END locations loop -->
                         </ul>
                     <?php endif; ?>
@@ -169,10 +141,23 @@ $responsive_sticky_footer_columns = 'col s3';
                         <ul id="footer-multi-location-phone-dropdown" class="footer-content-dropdown bg-tertiary dropdown-content z-depth-4">
                             <!-- Locations loop -->
                             <?php
+                            $locations_query = FALSE;
+                            if ( $fw_options['locations_override'] ) {
+                                global $locations_query;
+                                if ( ! $locations_query ) {
+
+                                    $args = array(
+                                        'post_type' => 'locations',
+                                        'orderby'   => 'date',
+                                        'order'     => 'DESC'
+                                    );
+                                    $locations_query = new WP_Query( $args );
+                                }
+                            }
                             if ( $locations_query->have_posts() ) : while ( $locations_query->have_posts() ) : ?>
                                 <?php
                                 $locations_query->the_post();
-                                $locations_meta = get_post_meta( $post->ID, 'dg_postmeta', true );
+                                $locations_meta = get_post_meta_single( $post->ID );
                                 ?>
                                 <li>
                                     <a href="tel:+1<?php echo $locations_meta['phone']; ?>">
@@ -183,7 +168,7 @@ $responsive_sticky_footer_columns = 'col s3';
                             <?php endwhile; else: ?>
                                 <p>No locations found!</p>
                             <?php endif; ?>
-                            <?php rewind_posts(); // We'll use the same query again for phone numbers to reduce server load ?>
+                            <?php wp_reset_postdata(); // We'll use the same query again for phone numbers to reduce server load ?>
                             <!-- END locations loop -->
                         </ul>
                     <?php endif; ?>
@@ -239,10 +224,24 @@ $responsive_sticky_footer_columns = 'col s3';
                             <?php //@todo#58 this h5 could potentially be an editable field ?>
                             <h5>Our Locations</h5>
                             <?php if ( is_user_logged_in() ) {
-                                echo "<a class='edit-link edit-link-icon floating t-r' href='" . get_admin_url() .  "/edit.php?post_type=locations' target='blank'><i class='material-icons'>edit</i></a >";
+                                echo "<a class='edit-link edit-link-icon floating t-r' href='" . get_admin_url() .  "/edit.php?post_type=locations' target='blank'><i class='fa fa-edit'></i></a >";
                             }  ?>
                             <!-- Multilocations loop -->
-                            <?php if ( $locations_query->have_posts() ) : while ( $locations_query->have_posts() ) :
+                            <?php
+                            $locations_query = FALSE;
+                            if ( $fw_options['locations_override'] ) {
+                                global $locations_query;
+                                if ( ! $locations_query ) {
+
+                                    $args = array(
+                                        'post_type' => 'locations',
+                                        'orderby'   => 'date',
+                                        'order'     => 'DESC'
+                                    );
+                                    $locations_query = new WP_Query( $args );
+                                }
+                            }
+                            if ( $locations_query->have_posts() ) : while ( $locations_query->have_posts() ) :
                                 $locations_query->the_post(); ?>
                                 <?php $locations_meta = get_post_meta_single( $post->ID ); ?>
                                 <div class="multi-location-wrapper">
@@ -258,7 +257,7 @@ $responsive_sticky_footer_columns = 'col s3';
                                 <div class="divider divider-thin"></div>
                             <?php endwhile; else : ?>
                                 <p>No locations found!</p>
-                            <?php endif; ?>
+                            <?php endif; wp_reset_postdata(); ?>
                             <!-- /end multilocations loop -->
                         </div>
 
@@ -267,27 +266,6 @@ $responsive_sticky_footer_columns = 'col s3';
                 </div><!-- /.info -->
             </div><!-- /.row -->
 
-
-            <!--
-            <div class="recent-posts col <?php //echo $footer_posts_col; ?>">
-	            <?php //if ( $recent_blogs_query->have_posts() ) : ?>
-                <div class="recent-blogs-heading"><?php //echo $footer_blogs_heading; ?></div>
-                <!-- Begin locations loop -- > 
-                <?php //while ( $recent_blogs_query->have_posts() ) : $recent_blogs_query->the_post(); ?>
-                    <div class="recent-blogs-wrapper">
-                        <a href="<?php //the_permalink(); ?>" class="blog-link">
-                            <p class="blog-title text-contrast"><?php //the_title(); ?></p>
-                            
-                        </a>
-                    </div>
-                    <div class="divider divider-thin"></div>
-                    <?php //wp_reset_postdata(); /* Restore original Post Data */ ?>
-                <?php //endwhile; else : ?>
-                    <p>Sorry, no recent blog posts were found.</p>
-                <?php //endif; ?>
-                <!-- End locations loop -- >
-            </div>
-            -->
         </div>
     </div>
 </footer>
@@ -317,16 +295,7 @@ $responsive_sticky_footer_columns = 'col s3';
         </div>
     </div>
 </section>
-<?php
 
-if ( $fw_options['awda_toggle'] ) {
-    //ERROR_LOG( 'Inserting awda markup: ' );
-    insert_awda_button_markup();
-}
-if ( $fw_options['translator_toggle'] ) {
-    //dg_enable_translator();
-}
-?>
 <div class="sticky-footer valign-wrapper hide-on-small-only bg-nav">
     <div class="container">
         <div class="row">
@@ -365,10 +334,7 @@ if ( $fw_options['translator_toggle'] ) {
             </div>
             <?php
             if ( $fw_options['awda_toggle'] ) {
-                //ERROR_LOG( 'Inserting awda markup: ' );
                 insert_awda_button_markup_mobile( );
-            } else {
-                //ERROR_LOG( 'AWDA Check was false: ' );
             }
             if ( $fw_options['translator_toggle'] ) {
                 //insert_translator_selector_markup_mobile();

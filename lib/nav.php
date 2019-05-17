@@ -1,59 +1,59 @@
 <?php
 /**
  * Class DG_Materialize_Navwalker
- * 
+ *
  * Revises the default WP nav markup to match Materialize's expected structure
- * 
- * 
- * 
-*/
+ *
+ *
+ *
+ */
 class DG_Materialize_Navwalker extends Walker {
-	//var $display_dropdown_title;
-	
-	var $db_fields = array( 'parent' => 'menu_item_parent', 'id' => 'db_id' );
-	
-	function start_lvl( &$output, $depth = 0, $args = array() ) {
-		
-		// Depth-dependent classes.
-		$indent = ( $depth > 0  ? str_repeat( "\t", $depth ) : '' ); // code indent
-		$display_depth = ( $depth + 1); // because it counts the first submenu as 0
-		$classes = array(
-			'dropdown-content',
-			'dropdown-main-nav',
-			( $display_depth % 2  ? 'menu-odd' : 'menu-even' ),
-			( $display_depth >=2 ? 'sub-sub-menu' : '' ),
-			'menu-depth-' . $display_depth
-		);
-		$class_names = implode( ' ', $classes );
-		
-		// Build HTML for output.
-		$output .= "\n" . $indent . ' class="' . $class_names . '">' . "\n";
-		
-		// For submenu dropdowns:
-		if ( $display_depth == 1 ) {
-			$output .= '<div class="container"><div class="row"><div class="nav-flex-dropdown">';
-		}
-		
-	}
-	
-	function end_lvl( &$output, $depth = 0, $args = array() ) {
+    //var $display_dropdown_title;
 
-		// For submenu dropdowns:
-		if ( $depth == 0 ) { 
-			$output .= '</div><!--/.nav-flex-dropdown--></div><!-- /.row --></div><!-- /.container -->'; 
-		}
-		
-		$indent = str_repeat("\t", $depth);
-		$output .= "$indent</ul>\n";
-		
-	}
-	
-	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-		global $wp_query;
+    var $db_fields = array( 'parent' => 'menu_item_parent', 'id' => 'db_id' );
+
+    function start_lvl( &$output, $depth = 0, $args = array() ) {
+
+        // Depth-dependent classes.
+        $indent = ( $depth > 0  ? str_repeat( "\t", $depth ) : '' ); // code indent
+        $display_depth = ( $depth + 1); // because it counts the first submenu as 0
+        $classes = array(
+            'dropdown-content',
+            'dropdown-main-nav',
+            ( $display_depth % 2  ? 'menu-odd' : 'menu-even' ),
+            ( $display_depth >=2 ? 'sub-sub-menu' : '' ),
+            'menu-depth-' . $display_depth
+        );
+        $class_names = implode( ' ', $classes );
+
+        // Build HTML for output.
+        $output .= "\n" . $indent . ' class="' . $class_names . '">' . "\n";
+
+        // For submenu dropdowns:
+        if ( $display_depth == 1 ) {
+            $output .= '<div class="container"><div class="row"><div class="nav-flex-dropdown">';
+        }
+
+    }
+
+    function end_lvl( &$output, $depth = 0, $args = array() ) {
+
+        // For submenu dropdowns:
+        if ( $depth == 0 ) {
+            $output .= '</div><!--/.nav-flex-dropdown--></div><!-- /.row --></div><!-- /.container -->';
+        }
+
+        $indent = str_repeat("\t", $depth);
+        $output .= "$indent</ul>\n";
+
+    }
+
+    public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+        global $wp_query;
 
         // Code Indent Formatting
         $indent = ( $depth > 0 ? str_repeat( "\t", $depth ) : '' );
-        
+
         //Nav item ID(s)
         $id_names = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
         $anchor_ids = empty( $item->linkid ) ? array() : (array) $item->linkid;
@@ -62,24 +62,24 @@ class DG_Materialize_Navwalker extends Walker {
         //Nav item classes
         $classes = empty( $item->classes ) ? array() : (array) $item->classes;
         $anchor_classes = empty( $item->linkclass ) ? array() : (array) $item->linkclass;
-        
+
         // Add active class 
-		if(in_array('current-menu-item', $classes)) {
-			$classes[] = 'active';
-		}
-		
-		// Classes related to nav item's children 
-		$children = get_posts(array(
-			'post_type' => 'nav_menu_item',
-			'nopaging' => true,
-			'numberposts' => 1,
-			'meta_key' => '_menu_item_menu_item_parent',
-			'meta_value' => $item->ID
-		));
-		if (!empty($children)) {
-			$classes[] = 'dropdown';
+        if(in_array('current-menu-item', $classes)) {
+            $classes[] = 'active';
+        }
+
+        // Classes related to nav item's children 
+        $children = get_posts(array(
+            'post_type' => 'nav_menu_item',
+            'nopaging' => true,
+            'numberposts' => 1,
+            'meta_key' => '_menu_item_menu_item_parent',
+            'meta_value' => $item->ID
+        ));
+        if (!empty($children)) {
+            $classes[] = 'dropdown';
             $anchor_classes[] = 'dropdown-button';
-		}
+        }
 
         // Depth-dependent classes
         $depth_classes = array(
@@ -88,19 +88,19 @@ class DG_Materialize_Navwalker extends Walker {
             'menu-item-depth-' . $depth
         );
         $classes = array_merge( $classes, $depth_classes );
-        $anchor_classes = array_merge( $anchor_classes, $depth_classes ); 
+        $anchor_classes = array_merge( $anchor_classes, $depth_classes );
 
         // Apply any hooked nav menu class filters on the nav item, and remove empty classes
         $class_names = implode( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item ) );
         $anchor_class_names = implode( ' ', apply_filters( 'nav_menu_anchor_class', array_filter( $anchor_classes ), $item ) );
         $anchor_id_names = implode( ' ', apply_filters( 'nav_menu_anchor_id', array_filter( $anchor_ids ), $item) );
-		
-		//Form the item's li
-		$output     .= $indent . '<li';
-        $output     .= ! empty( $id_names )         ? ' id="'     . esc_attr( $id_names         ) .'"' : '';   
+
+        //Form the item's li
+        $output     .= $indent . '<li';
+        $output     .= ! empty( $id_names )         ? ' id="'     . esc_attr( $id_names         ) .'"' : '';
         $output     .= ! empty( $class_names )      ? ' class="'  . esc_attr( $class_names      ) .'"' : '';
         $output     .= '>';
-        
+
         //Form the li's inner anchor
         $attributes =  ! empty( $anchor_id_names )    ? ' id="' .     esc_attr( $anchor_id_names    )  .'"' : '';
         $attributes .= ! empty( $anchor_class_names ) ? ' class="'  . esc_attr( $anchor_class_names )  .'"' : '';
@@ -109,30 +109,156 @@ class DG_Materialize_Navwalker extends Walker {
         $attributes .= ! empty( $item->xfn )          ? ' rel="'    . esc_attr( $item->xfn          )  .'"' : '';
         $attributes .= ! empty( $item->url )          ? ' href="'   . esc_attr( $item->url          )  .'"' : '';
         $attributes .= ! empty( $children )           ? ' data-activates="dropdown-'. $item->ID        .'"' : '';
-		$anchor_output .= '<a'. $attributes .'>';
-		$anchor_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
-		
-		// Append dropdown icon to anchor text
-		if( !empty( $children ) ) {
-			$anchor_output .= '<i class="hide material-icons right">arrow_drop_down</i>';
-		}
-		
-		$anchor_output .= '</a>';
+        $anchor_output .= '<a'. $attributes .'>';
+        $anchor_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
+
+        // Append dropdown icon to anchor text
+        if( !empty( $children ) ) {
+            $anchor_output .= '<i class="hide material-icons right">arrow_drop_down</i>';
+        }
+
+        $anchor_output .= '</a>';
         $anchor_output .= $args->after;
-		
-		if( !empty( $children ) ) {
+
+        if( !empty( $children ) ) {
             $anchor_output .= '<ul id="dropdown-'.$item->ID.'"';
-		}
-		
-		$output .= apply_filters( 'walker_nav_menu_start_el', $anchor_output, $item, $depth, $args );
-	}
-	
-	public function end_el( &$output, $item, $depth = 0, $args = array() ) {
-		$output .= "</li>\n";
-	}
+        }
+
+        $output .= apply_filters( 'walker_nav_menu_start_el', $anchor_output, $item, $depth, $args );
+    }
+
+    public function end_el( &$output, $item, $depth = 0, $args = array() ) {
+        $output .= "</li>\n";
+    }
 
 }
 
+class DG_Materialize_Sidenav_Navwalker extends Walker {
+    //var $display_dropdown_title;
+
+    var $db_fields = array( 'parent' => 'menu_item_parent', 'id' => 'db_id' );
+
+    function start_lvl( &$output, $depth = 0, $args = array() ) {
+
+        // Depth-dependent classes.
+        $indent = ( $depth > 0  ? str_repeat( "\t", $depth ) : '' ); // code indent
+        $display_depth = ( $depth + 1); // because it counts the first submenu as 0
+        $classes = array(
+            'dropdown-content',
+            'dropdown-main-nav',
+            'dropdown-side-nav',
+            ( $display_depth % 2  ? 'menu-odd' : 'menu-even' ),
+            ( $display_depth >=2 ? 'sub-sub-menu' : '' ),
+            'menu-depth-' . $display_depth
+        );
+        $class_names = implode( ' ', $classes );
+
+        // Build HTML for output.
+        $output .= "\n" . $indent . ' class="' . $class_names . '">' . "\n";
+
+        // For submenu dropdowns:
+        if ( $display_depth == 1 ) {
+            $output .= '<div class="container"><div class="row"><div class="nav-flex-dropdown">';
+        }
+
+    }
+
+    function end_lvl( &$output, $depth = 0, $args = array() ) {
+
+        // For submenu dropdowns:
+        if ( $depth == 0 ) {
+            $output .= '</div><!--/.nav-flex-dropdown--></div><!-- /.row --></div><!-- /.container -->';
+        }
+
+        $indent = str_repeat("\t", $depth);
+        $output .= "$indent</ul>\n";
+
+    }
+
+    public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+        global $wp_query;
+
+        // Code Indent Formatting
+        $indent = ( $depth > 0 ? str_repeat( "\t", $depth ) : '' );
+
+        //Nav item ID(s)
+        $id_names = apply_filters( 'nav_menu_item_id', 'side-menu-item-'. $item->ID, $item, $args );
+        $anchor_ids = empty( $item->linkid ) ? array() : (array) $item->linkid;
+        $anchor_ids[] = 'side-menu-item-'. $item->ID . '-anchor';
+
+        //Nav item classes
+        $classes = empty( $item->classes ) ? array() : (array) $item->classes;
+        $anchor_classes = empty( $item->linkclass ) ? array() : (array) $item->linkclass;
+
+        // Add active class
+        if(in_array('current-menu-item', $classes)) {
+            $classes[] = 'active';
+        }
+
+        // Classes related to nav item's children
+        $children = get_posts(array(
+            'post_type' => 'nav_menu_item',
+            'nopaging' => true,
+            'numberposts' => 1,
+            'meta_key' => '_menu_item_menu_item_parent',
+            'meta_value' => $item->ID
+        ));
+        if (!empty($children)) {
+            $classes[] = 'dropdown';
+            $anchor_classes = array('dropdown-button', 'side-nav-dropdown-button');
+        }
+
+        // Depth-dependent classes
+        $depth_classes = array(
+            ( $depth == 0 ? 'main-menu-item' : 'sub-menu-item' ),
+            ( $depth % 2 ? 'menu-item-odd-depth' : 'menu-item-even-depth' ),
+            'menu-item-depth-' . $depth
+        );
+        $classes = array_merge( $classes, $depth_classes );
+        $anchor_classes = array_merge( $anchor_classes, $depth_classes );
+
+        // Apply any hooked nav menu class filters on the nav item, and remove empty classes
+        $class_names = implode( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item ) );
+        $anchor_class_names = implode( ' ', apply_filters( 'nav_menu_anchor_class', array_filter( $anchor_classes ), $item ) );
+        $anchor_id_names = implode( ' ', apply_filters( 'nav_menu_anchor_id', array_filter( $anchor_ids ), $item) );
+
+        //Form the item's li
+        $output     .= $indent . '<li';
+        $output     .= ! empty( $id_names )         ? ' id="'     . esc_attr( $id_names         ) .'"' : '';
+        $output     .= ! empty( $class_names )      ? ' class="'  . esc_attr( $class_names      ) .'"' : '';
+        $output     .= '>';
+
+        //Form the li's inner anchor
+        $attributes =  ! empty( $anchor_id_names )    ? ' id="' .     esc_attr( $anchor_id_names    )  .'"' : '';
+        $attributes .= ! empty( $anchor_class_names ) ? ' class="'  . esc_attr( $anchor_class_names )  .'"' : '';
+        $attributes .= ! empty( $item->attr_title )   ? ' title="'  . esc_attr( $item->attr_title   )  .'"' : '';
+        $attributes .= ! empty( $item->target )       ? ' target="' . esc_attr( $item->target       )  .'"' : '';
+        $attributes .= ! empty( $item->xfn )          ? ' rel="'    . esc_attr( $item->xfn          )  .'"' : '';
+        $attributes .= ! empty( $item->url )          ? ' href="'   . esc_attr( $item->url          )  .'"' : '';
+        $attributes .= ! empty( $children )           ? ' data-activates="sidenav-dropdown-'. $item->ID        .'"' : '';
+        $anchor_output .= '<a'. $attributes .'>';
+        $anchor_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
+
+        // Append dropdown icon to anchor text
+        if( !empty( $children ) ) {
+            $anchor_output .= '<i class="hide material-icons fa-sort-desc right"></i>';
+        }
+
+        $anchor_output .= '</a>';
+        $anchor_output .= $args->after;
+
+        if( !empty( $children ) ) {
+            $anchor_output .= '<ul id="sidenav-dropdown-'.$item->ID.'"';
+        }
+
+        $output .= apply_filters( 'walker_nav_menu_start_el', $anchor_output, $item, $depth, $args );
+    }
+
+    public function end_el( &$output, $item, $depth = 0, $args = array() ) {
+        $output .= "</li>\n";
+    }
+
+}
 
 /*
  * -------------------- CSS ID & Classes - Back End  ----------------------

@@ -116,7 +116,7 @@ $address_link = ! empty( $fw_options['driving_directions'] ) ? $fw_options['driv
                 </ul>
             </div>
             <!-- Mobile Nav Button -->
-            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="fa fa-bars" aria-hidden="true"></i></a>
 
             <!-- Main Navigation -->
             <div class="main-nav-wrapper hide-on-med-and-down">
@@ -137,14 +137,15 @@ $address_link = ! empty( $fw_options['driving_directions'] ) ? $fw_options['driv
             <div class="side-nav-wrapper">
 	            <?php
 	            if ( has_nav_menu('primary') ) {
-		            wp_nav_menu( array(
-                        'depth'             => '1',
-			            'menu'              => 'primary',
-			            'theme_location'    => 'side',
-			            'menu_class'        => 'side-nav bg-tertiary',
-			            'menu_id'           => 'mobile-demo',
-			            'container_class'   => 'menu-side-nav'
-		            ) );
+                    wp_nav_menu( array(
+                        'depth'             => ( !isset($fw_options['sidenav_submenu_toggle']) ) ? '0' : '1',
+                        'menu'              => 'primary',
+                        'theme_location'    => 'side',
+                        'menu_class'        => 'side-nav bg-tertiary',
+                        'menu_id'           => 'mobile-demo',
+                        'container_class'   => 'menu-side-nav',
+                        'walker'            => ( !isset($fw_options['sidenav_submenu_toggle']) ) ? new DG_Materialize_Sidenav_Navwalker() : null
+                    ) );
 	            }
 	            ?>
             </div><!-- /.side-nav-wrapper -->

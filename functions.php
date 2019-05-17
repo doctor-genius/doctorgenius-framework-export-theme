@@ -30,6 +30,7 @@ function doctorgenius_theme_setup() {
         '/lib/relative-urls.php',                               // Enable relative URLs
         '/lib/search.php',                                      // Use our custom search form, and create a [searchform] shortcode 
         '/lib/translator.php',                                  // Adds the necessary markup and JS to produce the Google Translator box  
+        '/lib/shortcodes.php',                                  // Shortcodes
         '/lib/admin/import-options.php',                        // Actions to take after in import
         '/lib/admin/theme-activation.php',                      // Activation routine, updates default db options 
         '/lib/admin/custom-post-types.php',                     // Locations CPT needed even in exported site 

@@ -1,4 +1,4 @@
-var awdaDebug = true;
+var awdaDebug = false;
 var textColorCookieName = "DGAccessibilityTextColor";
 var textSizeCookieName = "DGAccessibilityTextSize";
 
@@ -43,8 +43,8 @@ function ChangeAccessibilityTextSize( e ) {
     var newTextSizeMultiplier = newTextPercent * .01 ;
 
     
-    console.log( "Button pressed. Before button, text percent was " + previousTextPercent + " so to find original text size we divide current text size by " + previousTextSizeMultiplier 
-        + ".  New text percent is " + newTextPercent + " so to find new text size we multiply original text size by " + newTextSizeMultiplier ); 
+    /* console.log( "Button pressed. Before button, text percent was " + previousTextPercent + " so to find original text size we divide current text size by " + previousTextSizeMultiplier 
+        + ".  New text percent is " + newTextPercent + " so to find new text size we multiply original text size by " + newTextSizeMultiplier ); */ 
     
     
     jQuery.each( textNodes, function() {

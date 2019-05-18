@@ -104,7 +104,7 @@ $('.single-location-hero').slick({
 });
 
 
-$('.dropdown-button').dropdown({
+$('.dropdown-button:not(.side-nav-dropdown-button)').dropdown({
         inDuration: 300,
         outDuration: 0,
         constrainWidth: false, // Does not change width of dropdown to that of the activator
@@ -115,6 +115,38 @@ $('.dropdown-button').dropdown({
         stopPropagation: false // Stops event propagation
     }
 );
+
+// Dropdown menu only for the side nav dropdown button
+$('.dropdown-button.side-nav-dropdown-button').dropdown({
+        inDuration: 300,
+        outDuration: 0,
+        constrainWidth: false, // Does not change width of dropdown to that of the activator
+        hover: false, // Activate on hover
+        gutter: 0, // Spacing from edge
+        belowOrigin: true, // Displays dropdown below the button
+        alignment: 'left', // Displays dropdown with edge aligned to the left of button
+        stopPropagation: false // Stops event propagation
+    }
+);
+
+if ( $('.dropdown-button').siblings('.dropdown-side-nav') ) {
+    $('.dropdown-button.side-nav-dropdown-button i.material-icons.hide').removeClass('hide');
+}
+
+// Click event listener for the dropdown arrow on the sidenav menu item
+$('.dropdown-button i.material-icons').click(function (e) {
+    // Prevent normal behavior so that dropdown arrow click only opens/closes submenu
+    e.preventDefault();
+    e.stopPropagation();
+    // Make sure that all other submenus are closed before opening the new submenu
+    $(this).closest('li.menu-item').siblings().children('.dropdown-button.active').dropdown('close');
+    // if submenu is open then close it, else open it
+    if ( $(this).parent().hasClass('active') ) {
+        $(this).dropdown('close');
+    } else {
+        $(this).dropdown('open');
+    }
+});
 
 $('.multi-location-nav').dropdown({
         inDuration: 300,
@@ -183,9 +215,9 @@ $('.modal').modal({
 // Main Slider //
 $('.slider').slider({
     indicators: true,
+    interval: 10000,
 });
 
-$('.slider').slider('pause'); //just pause the slider once its loaded
 
 $('.reviews-callout-slider').slick({
     dots: false,
@@ -286,6 +318,8 @@ $(document).ready(function () {
     /* $('select').material_select();
     Materialize.updateTextFields(); */
     $('.matchHeight').matchHeight();
+    /* Accounts for issues with placeholder colors from the other inputs */
+    $('select').change(function(){$(this).css('color','black')})
     
 });
 

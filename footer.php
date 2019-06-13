@@ -2,7 +2,15 @@
 $fw_options = get_option( 'dg_options' );
 
 // Process meta array offsets into variables for use in template
-$company_logo = !isset( $fw_options['company_logo'] ) ? '' : strip_img_dimensions( wp_get_attachment_image( $fw_options['company_logo'], 'full', FALSE, array( 'alt' => 'Visit ' . $fw_options['company_name'] ) ) );
+/* Logo is slightly different for export theme */
+$logo_url = isset( $fw_options['company_logo_url'] ) ? $fw_options['company_logo_url'] : FALSE;
+if ( $logo_url ) {
+    preg_match( '@wp-content([\\\/]*)uploads([\\\/]*)(.*\..*)@', $logo_url,$matches );
+    $company_logo = '<img class="attachment-logo size-logo" src="' . get_site_url() . '/wp-content/uploads/' . $matches[3] . '">';
+} else {
+    $company_logo = '<span>No Logo Found</span>';
+}
+
 $company_email = !isset( $fw_options['company_email'] ) ? '' : $fw_options['company_email'];
 $company_fax = !isset( $fw_options['company_fax'] ) ? '' : $fw_options['company_fax'];
 $company_name = !isset( $fw_options['company_name'] ) ? '' : $fw_options['company_name'];

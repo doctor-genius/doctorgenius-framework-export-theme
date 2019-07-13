@@ -1,6 +1,6 @@
 <?php
 
-DEFINE( 'DGFWVERSION', '2.0.3-dev' );
+DEFINE( 'DGFWVERSION', '2.0.4-dev' );
 
 add_action( 'after_setup_theme', 'doctorgenius_theme_setup' );
 function doctorgenius_theme_setup() {

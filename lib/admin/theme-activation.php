@@ -28,7 +28,7 @@ function dgfw_activate() {
     }
     
     // Handle WP settings
-    update_option( 'permalink_structure', '/%postname%/' );
+    update_option( 'permalink_structure', '/blog/%postname%/' );
     update_option( 'uploads_use_yearmonth_folders', FALSE );
     
     //Remove default/unnecessary posts

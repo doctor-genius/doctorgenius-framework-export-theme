@@ -5,8 +5,9 @@ $fw_options = get_option( 'dg_options' );
 /* Logo is slightly different for export theme */
 $logo_url = isset( $fw_options['company_logo_url'] ) ? $fw_options['company_logo_url'] : FALSE;
 if ( $logo_url ) {
+    $logo_url = preg_replace( '/-\d*?x\d*?(\..*?)$/', '$1', $logo_url );
     preg_match( '@wp-content([\\\/]*)uploads([\\\/]*)(.*\..*)@', $logo_url,$matches );
-    $company_logo = '<img class="attachment-logo size-logo" src="' . get_site_url() . '/wp-content/uploads/' . $matches[3] . '">';
+    $company_logo = '<img class="attachment-logo size-full" src="' . get_site_url() . '/wp-content/uploads/' . $matches[3] . '">';
 } else {
     $company_logo = '<span>No Logo Found</span>';
 }

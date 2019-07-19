@@ -136,8 +136,8 @@
     font-weight: normal;
     font-style: normal;
 
-    src: url('../fonts/slick.eot');
-    src: url('../fonts/slick.eot?#iefix') format('embedded-opentype'), url('../fonts/slick.woff') format('woff'), url('../fonts/slick.ttf') format('truetype'), url('../fonts/slick.svg#slick') format('svg');
+    src: url('../../../themes/doctorgenius-framework/fonts/slick.eot');
+    src: url('../../../themes/doctorgenius-framework/fonts/slick.eot?#iefix') format('embedded-opentype'), url('../../../themes/doctorgenius-framework/fonts/slick.woff') format('woff'), url('../../../themes/doctorgenius-framework/fonts/slick.ttf') format('truetype'), url('../../../themes/doctorgenius-framework/fonts/slick.svg#slick') format('svg');
 }
 /* Arrows */
 .slick-prev,
@@ -337,5 +337,3 @@
   -ms-user-select: text;
   user-select: text;
 }
-
-

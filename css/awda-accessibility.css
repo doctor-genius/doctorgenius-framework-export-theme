@@ -9,8 +9,6 @@
 /* AwDA responsive footer */
 .sticky-footer .row .col.s2 { margin-right:auto;margin-left:auto; }
 .sticky-footer ul { left: initial;right:36px;bottom:52px; }
-/*.sticky-footer .fixed-action-btn { position:initial;padding:0; }
-.sticky-footer .btn-floating.btn-large { height:40px;width:40px; }*/
 .sticky-footer i.fa.fa-wheelchair { line-height:40px;position:relative;bottom:5px;left:2px;font-size:18px; }
 
 

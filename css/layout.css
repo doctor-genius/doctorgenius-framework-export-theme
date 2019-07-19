@@ -1731,3 +1731,14 @@ body.logged-in .no-posts-found-alert { display: block }
     .single-location .btn-floating i { line-height:40px; }
     .single-location .location-block p { font-size:18px; }
 }
+
+nav .side-nav li>a.dropdown-button>i.material-icons:before {
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 100%;
+    display: inline-block;
+    transition: .4s;
+}
+.fa-sort-desc:before, .fa-sort-down:before {
+    content: "\f0dd";
+}

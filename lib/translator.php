@@ -3,11 +3,11 @@
 $fw_options = get_option( 'dg_options' );
 
 if ( array_key_exists( 'translator_toggle', $fw_options ) && $fw_options['translator_toggle'] == TRUE ) {
-	//add_action( 'wp_footer', 'dg_enable_translator' );
+    add_action( 'wp_enqueue_scripts', 'dg_enable_translator' );
 }
 
-function dg_translator_codes() { 
-    
+function dg_translator_codes() {
+
     return array(
         'Afrikaans' => 'af',
         'Albanian' => 'sq',
@@ -120,74 +120,74 @@ function dg_enable_translator() {
     $fw_options = get_option( 'dg_options' );
     $languages = $fw_options['translator_languages'];
     $codes = dg_translator_codes();
-    
+
     $php_data['enabled_languages'] = $languages;
     $php_data['language_codes'] = $codes;
-    
-    insert_translator_selector_markup( $languages, $codes );
-    
+
+    add_action( 'wp_footer', 'insert_translator_selector_markup', 10 );
+
     wp_enqueue_script( 'google_translator_internal_scripts', get_template_directory_uri() . '/js/google-translator.js', array( 'jquery' ), '1.0.0', true );
     wp_enqueue_script( 'google_translator_external_scripts', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit', array( 'jquery', 'google_translator_internal_scripts' ), '1.0.0', true );
-    
-    wp_enqueue_style( 'google_translator', get_template_directory_uri() . '/css/google-translator.css');
+
     wp_localize_script( 'google_translator_internal_scripts', 'php_vars', $php_data );
+    //Deprecated, included in the concatenated new layout 
+    wp_enqueue_style( 'google_translator', get_template_directory_uri() . '/css/google-translator.css');
 }
 
-function insert_translator_selector_markup( $enabled_languages, $language_codes ) {
-	?>
+function insert_translator_selector_markup( ) {
+
+    $fw_options = get_option( 'dg_options' );
+    $enabled_languages = $fw_options['translator_languages'];
+    $language_codes = dg_translator_codes();
+    ?>
     <section class="google-translator-sticky hide-on-small-only">
-        <div id="translator" class="fixed-action-btn"> <!-- for toggle add class "click-to-toggle" --> 
+        <div id="translator" class="fixed-action-btn">
             <a href="#" class="btn-floating btn-large waves-effect waves-light hoverable black" title="Translate This Page">
-                <!--<span id="current_lang" class="english">English</span>-->
                 <i class="fa fa-globe"></i>
             </a>
-            <ul id="translation_links" role="menu">   
-                
-                
-            
-                <?php foreach( $enabled_languages as $language ) :
-                    $language_name = array_search( $language, $language_codes );
-                    ?>
-                    <li>
-                        <a href="#" title="<?php echo $language_name; ?>" class="<?php echo strtolower( $language_name ); ?> btn btn-floating waves-effect waves-light black" data-lang="<?php echo $language; ?>"><?php echo $language_name; ?></a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-            <div id="google_translate_element"></div>
+            <?php if ( array_key_exists( 'translator_languages', $fw_options ) ) : ?>
+                <ul id="translation_links" role="menu">
+                    <?php foreach( $enabled_languages as $language ) :
+                        $language_name = array_search( $language, $language_codes );
+                        ?>
+                        <li>
+                            <a href="#" title="<?php echo $language_name; ?>" class="<?php echo strtolower( $language_name ); ?> btn btn-floating waves-effect waves-light black" data-lang="<?php echo $language; ?>"><?php echo $language_name; ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+                <div id="google_translate_element"></div>
+            <?php endif; ?>
         </div><!-- /#translator -->
     </section>
-	<?php
+    <?php
 }
 
 function insert_translator_selector_markup_mobile( ) {
     $fw_options = get_option( 'dg_options' );
     $codes = dg_translator_codes();
 
-    //$php_data['enabled_languages'] = $languages;
-    //$php_data['language_codes'] = $codes;
+    $php_data['enabled_languages'] = $languages;
+    $php_data['language_codes'] = $codes;
     ?>
-    
+
     <div class="google-translator-sticky mobile">
         <div id="translator" class="fixed-action-btn click-to-toggle">
             <a class="btn-floating btn-large waves-effect waves-light hoverable black">
                 <i class="fa fa-globe"></i>
             </a>
 
-            <ul id="translation_links" role="menu">
-                <?php foreach( $fw_options['translator_languages'] as $language ) :
-                    $language_name = array_search( $language, $codes );
-                    ?>
-                    <li>
-                        <a href="#" title="<?php echo $language_name; ?>" class="<?php echo strtolower( $language_name ); ?> btn btn-floating waves-effect waves-light black" data-lang="<?php echo $language; ?>"><?php echo $language_name; ?></a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <?php if ( array_key_exists( 'translator_languages', $fw_options ) ) : ?>
+                <ul id="translation_links" role="menu">
+                    <?php foreach( $fw_options['translator_languages'] as $language ) :
+                        $language_name = array_search( $language, $codes );
+                        ?>
+                        <li>
+                            <a href="#" title="<?php echo $language_name; ?>" class="<?php echo strtolower( $language_name ); ?> btn btn-floating waves-effect waves-light black" data-lang="<?php echo $language; ?>"><?php echo $language_name; ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </div>
     </div>
-
-
-
-
-    
     <?php
 }

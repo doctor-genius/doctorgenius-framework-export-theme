@@ -87,7 +87,7 @@ if ( ! $footer_contact_row_box_3_link ) {
 
 //Handle AwDA
 $responsive_sticky_footer_columns = 'col s3';
-//if ( $fw_options['awda_toggle']  ) { $responsive_sticky_footer_columns = 'col s2'; }
+if ( $fw_options['awda_toggle']  ) { $responsive_sticky_footer_columns = 'col s2'; }
 
 ?>
 
@@ -346,7 +346,7 @@ $responsive_sticky_footer_columns = 'col s3';
                 insert_awda_button_markup_mobile( );
             }
             if ( $fw_options['translator_toggle'] ) {
-                //insert_translator_selector_markup_mobile();
+                insert_translator_selector_markup_mobile();
             }
             ?>
         </div>

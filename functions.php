@@ -69,6 +69,7 @@ function dg_load_scripts() {
     wp_enqueue_style( 'font_awesome_stylesheet', get_template_directory_uri() . '/css/font-awesome.css', array( 'dg_stylesheet' ), NULL );
     wp_enqueue_style( 'slick_default_stylesheet', get_template_directory_uri() . '/css/slick-default.css', array( 'dg_stylesheet' ), NULL );
     wp_enqueue_style( 'google_material_icons_stylesheet', get_template_directory_uri() . '/css/google-material-icons.css', array( 'dg_stylesheet' ), NULL );
+    wp_enqueue_style( 'fonts_stylesheet', get_template_directory_uri() . '/css/fonts.css', array( 'dg_stylesheet' ), NULL );
 
     // Colors: Load the default color sheet unless a client-specific one has been created (dg-colors.css)
     if ( file_exists( get_stylesheet_directory() . '/css/dg-colors.css' ) ) {

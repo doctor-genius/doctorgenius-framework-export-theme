@@ -370,6 +370,14 @@ $additional_markup = get_post_meta( $post->ID, 'dg_additional_markup', TRUE );
 $footer_markup = ! isset( $additional_markup['footer_markup'] ) ? '' : $additional_markup['footer_markup'];
 if ( $footer_markup ) { echo '<!-- Additional Footer Markup -->' . $footer_markup . '<!-- END Additional Footer Markup -->'; }
 ?>
+<!-- This is a temporary hacky hotfix -->
+<script>
+    jQuery('.page-id-9818').addClass('page-template-page-home-php');
+    jQuery('.page-id-922').addClass('page-template-page-about-php');
+    jQuery('.page-id-9820').addClass('page-template-page-patientinfo-php');
+    jQuery('.page-id-9817').addClass('page-template-page-contact-php');
+    jQuery('.page-id-9821').addClass('page-template-page-testimonials-php');
+</script>
 
 <!-- wp_footer() output -->
 <?php wp_footer(); ?>
